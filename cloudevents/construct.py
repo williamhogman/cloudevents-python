@@ -3,9 +3,9 @@ from cloudevents.constants import SPEC_VERSION
 
 
 def create(
-    event_type: str, event_id: str, source: str,
-    cloud_events_version: str = SPEC_VERSION,
-    event_type_version: str = None,
+    event_type, event_id, source,
+    cloud_events_version=SPEC_VERSION,
+    event_type_version=None,
     event_time=None, schema_url=None, content_type=None
 ):
     return Event.create_from_dict(dict(
