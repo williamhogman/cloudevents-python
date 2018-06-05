@@ -54,7 +54,7 @@ def _send_cloud_event(post_fn, origin, url, json):
         'Origin': origin,
         'User-Agent': 'python-cloudevents'
     }
-    return post_fn(url, headers, json=json)
+    return post_fn(url, headers=headers, json=json)
 
 
 ALLOWED_STATUSES = set([200, 201, 202, 204])
