@@ -9,6 +9,8 @@ setup(name='cloudevents-python',
       url='https://github.com/williamhogman/cloudevents-python',
       license='MIT',
       packages=find_packages(exclude=['tests*']),
+      test_suite='nose.collector',
+      tests_require=['nose', 'requests_mock>=1.4.0', 'requests>=2.18.4'],
       classifiers=[
           'Development Status :: 3 - Alpha',
           'Intended Audience :: Developers',
