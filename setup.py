@@ -2,7 +2,7 @@
 from setuptools import setup, find_packages
 
 setup(name='cloudevents-python',
-      version='0.1.0',
+      version='0.2.0',
       description='Python implmenetation of cloudevents',
       author='William Rudenmalm',
       author_email='me@whn.se',
