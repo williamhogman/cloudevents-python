@@ -43,7 +43,7 @@ def _may_send_webhook_to(options_fn, origin, url):
     if not res.ok:
         return False
     else:
-        theirs = res.headers["WebHook-Allowed-Origin"]
+        theirs = res.headers.get("WebHook-Allowed-Origin")
         return origin_matches(origin, theirs)
 
 
