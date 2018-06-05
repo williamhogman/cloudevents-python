@@ -16,9 +16,9 @@ def _requests_or_throw():
     if r is None:
         msg = "`requests` is not importable and no default implementation is provided"
         raise RuntimeError(msg)
+    return r
 
-
-def _defualt_post_fn():
+def _default_post_fn():
     requests = _requests_or_throw()
     return requests.post
 
