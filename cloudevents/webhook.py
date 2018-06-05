@@ -29,6 +29,8 @@ def _default_options_fn():
 
 
 def origin_matches(our_origin, theirs):
+    if theirs is None:
+        return our_origin is None
     if theirs == "*":
         return True
     else:
@@ -121,8 +123,13 @@ class WebhookDestination(object):
         )
         res.raise_for_status()
 
-        if res.status not in ALLOWED_STATUSES:
+        if res.status_code not in ALLOWED_STATUSES:
             msg = "Webhook destination returned status {}, which is not permissable according to spec".format(res.status)
             raise RuntimeError(msg)
 
-        return (res.status, res.json)
+        return (
+            res.status_code,
+            res.json()
+            if res.headers.get('Content-Type') == "application/json"
+            else res.content
+            )
