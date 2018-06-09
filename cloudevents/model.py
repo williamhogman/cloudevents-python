@@ -34,7 +34,6 @@ FIELD_REMAPPING = {
     "event_time": "eventTime",
     "schema_url": "schemaURL",
     "content_type": "contentType",
-    "extensions": "extensions",
     "data": "data",
 }
 FIELD_REMAPPING_INV = {FIELD_REMAPPING[k]: k for k in FIELD_REMAPPING}
@@ -49,11 +48,6 @@ def verify_cloudevent(d):
 
     for name in OPTIONAL_STRING_FIELDS:
         _check_non_empty_str(d, name)
-
-    ext = d.get("extensions")
-    if ext and ext == {}:
-        raise RuntimeError("Extensions must be non-empty or null")
-
 
 class Event(object):
     def __init__(self, d):
@@ -73,6 +67,17 @@ class Event(object):
 
     def to_dict(self):
         return dict(self.d)
+
+    @property
+    def extensions(self):
+        if self.cloud_events_version == "0.1":
+            # in CE0.1 there was an extensions field, if present fallback to it
+            extensions_field = self.d.get("extensions")
+            if extensions_field is not None:
+                return extensions_field
+
+        # Post-0.1 it is simply defined as non-standard fields
+        return {k: self.d[k] for k in self.d if k not in FIELDS}
 
     @classmethod
     def create_from_dict(cls, d):
