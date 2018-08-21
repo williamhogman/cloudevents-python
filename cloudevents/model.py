@@ -56,7 +56,8 @@ class Event(object):
 
         if isinstance(self.d.get("data"), str):
             ct = self.content_type
-            if (ct.startswith("application/json") or ct.endswith("+json")):
+            if ct and (ct.startswith("application/json")
+                       or ct.endswith("+json")):
                 self.d["data"] = json.loads(self.d["data"])
 
     def __getattribute__(self, name):
