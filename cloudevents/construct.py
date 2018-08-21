@@ -6,7 +6,8 @@ def create(
     event_type, event_id, source,
     cloud_events_version=SPEC_VERSION,
     event_type_version=None,
-    event_time=None, schema_url=None, content_type=None
+    event_time=None, schema_url=None, content_type=None,
+    data=None
 ):
     return Event.create_from_dict(dict(
         event_type=event_type,
@@ -16,5 +17,6 @@ def create(
         event_type_version=event_type_version,
         event_time=event_time,
         schema_url=schema_url,
-        content_type=content_type
+        content_type=content_type,
+        data=data
     ))
